@@ -1,0 +1,9 @@
+[user]
+	email = jschein@eyemaginetech.com
+	name = Jason Schein
+[core]
+	editor = /usr/bin/vim
+[alias]
+	conflicts = diff --name-only --diff-filter=U
+[merge]
+	tool = vimdiff
