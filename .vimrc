@@ -6,22 +6,34 @@ Bundle 'gmarik/vundle'
 " My Bundles
     " Color Scheme
     Bundle 'flazz/vim-colorschemes'
-    set background=light
 
-    "Nerdtree Folder Management
+    " Nerdtree Folder Management
     Bundle 'scrooloose/nerdtree'
 
-    "Powerline: Cool thing at bottom of screep
+    " Powerline: Cool thing at bottom of screep
     Bundle 'Lokaltog/powerline'
 
-set t_Co=256
+    " Exhuberent Ctags
+    Bundle 'jakedouglas/exuberant-ctags'
 
+    " PHP Docblock automater
+    Bundle 'tobyS/pdv'
+    " PHP documenter script bound to Control-P
+    autocmd FileType php inoremap <C-p> <ESC>:call pdv#DocumentWithSnip()<CR>i
+    autocmd FileType php nnoremap <C-p> <ESC>:call pdv#DocumentWithSnip()<CR>
+    autocmd FileType php vnoremap <C-p> <ESC>:call pdv#DocumentWithSnip()<CR>
+
+    " Php autocomplete
+    Bundle 'shawncplus/phpcomplete.vim'
+
+set t_Co=256
+set background=light
 colorscheme xoria256
-set guifont=Menlo\ 16
+set guifont=Menlo
 set guioptions-=T " Removes top toolbar
 set guioptions-=r " Removes right hand scroll bar
 set go-=L " Removes left hand scroll bar
-set linespace=15
+set linespace=12
 
 set showmode                    " always show what mode we're currently editing in
 set nowrap                      " don't wrap lines
@@ -44,11 +56,15 @@ set noerrorbells         " don't beep
 set autowrite  "Save on buffer switch
 set mouse=a
 
+" More friendly tab characters when set list
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
 
+let g:pdv_template_dir = "~/.vim/bundle/pdv/templates/"
 " Fast saves
 nmap <leader>w :w!<cr>
 
@@ -117,6 +133,12 @@ set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusl
 autocmd cursorhold * set nohlsearch
 autocmd cursormoved * set hlsearch
 
+
+" omnifunc autocomplete php
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+autocmd FileType php set omnifunc=phpcomplete#Complete
+
 " Remove search results
 command! H let @/=""
 
@@ -145,6 +167,9 @@ nmap <leader>lca :e app/config/app.php<cr>81Gf(%O
 nmap <leader>lcd :e app/config/database.php<cr>
 nmap <leader>lc :e composer.json<cr>
 
+" Hide current highlighting
+nmap <leader>hh :let @/= ""<cr>
+
 " Concept - load underlying class for Laravel
 function! FacadeLookup()
     let facade = input('Facade Name: ')
@@ -159,11 +184,7 @@ function! FacadeLookup()
 endfunction
 nmap ,lf :call FacadeLookup()<cr>
 
-" CtrlP Stuff
 
-" Familiar commands for file/symbol browsing
-map <D-p> :CtrlP<cr>
-map <C-r> :CtrlPBufTag<cr>
 
 " I don't want to pull up these folders/files when calling CtrlP
 set wildignore+=*/vendor/**

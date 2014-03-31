@@ -1,3 +1,6 @@
+# -*- mode: sh -*-
+# vi: set ft=sh :
+
 if [ -r ~/.bash_aliases ]; then
     .  ~/.bash_aliases 
 fi
@@ -14,3 +17,10 @@ fi
 
 # Git autolocompletiong
 source ~/.git-completion.bash
+
+export EDITOR=vim
+export PATH="/usr/local/bin:$PATH"
+
+# Grep use color by default
+export GREP_COLOR='1;37;41'
+alias grep='grep --color=auto'
