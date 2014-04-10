@@ -92,7 +92,6 @@ nmap <C-c> "+y
 nmap <C-f> <C-u>
 
 "Resize vsplit
-nmap <C-v> :vertical resize +5<cr>
 nmap 25 :vertical resize 40<cr>
 nmap 50 <c-w>=
 nmap 75 :vertical resize 120<cr>
@@ -234,3 +233,15 @@ nmap ,2  :call AddDependency()<cr>
 if  ! has("gui_running")
     syntax on
 endif
+
+
+" Toggle Mouse Mode
+map <silent><F12> :let &mouse=(&mouse == "a"?"":"a")<CR>:call ShowMouseMode()<CR>
+imap <silent><F12> :let &mouse=(&mouse == "a"?"":"a")<CR>:call ShowMouseMode()<CR>
+function ShowMouseMode()
+    if (&mouse == 'a')
+        echo "mouse-vim"
+    else
+        echo "mouse-xterm"
+    endif
+endfunction
